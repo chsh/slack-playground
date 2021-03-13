@@ -10,10 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_12_113502) do
+ActiveRecord::Schema.define(version: 2021_03_12_121142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "members", force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.string "name"
+    t.string "object_id"
+    t.jsonb "attrs", default: {}
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["attrs"], name: "index_members_on_attrs", using: :gin
+    t.index ["team_id", "object_id"], name: "index_members_on_team_id_and_object_id", unique: true
+    t.index ["user_id"], name: "index_members_on_user_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "object_id", null: false
+    t.jsonb "attrs", default: {}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["attrs"], name: "index_teams_on_attrs", using: :gin
+    t.index ["object_id"], name: "index_teams_on_object_id", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +50,6 @@ ActiveRecord::Schema.define(version: 2021_03_12_113502) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "members", "teams"
+  add_foreign_key "members", "users"
 end

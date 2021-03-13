@@ -4,7 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.0'
 
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'omniauth-slack'
+gem 'dotenv-rails'
+gem 'faraday'
 gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'pg', '~> 1.1'

@@ -1,0 +1,8 @@
+h1 Root#index
+p Find me in app/views/root/index.html.slim
+
+
+- if user_signed_in?
+  | Slack logged in
+- else
+  = link_to 'Sign in using Slack', SlackAuth.new.authorize_url
