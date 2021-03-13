@@ -28,6 +28,7 @@ class User < ApplicationRecord
   concerning :MemberFeature do
     included do
       has_one :member, dependent: :nullify
+      delegate :client, to: :member
     end
   end
 end
