@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title SlackPlayground
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'application', 'data-turbo-track': 'reload'
+  body.bg-white.text-black.dark:bg-black.dark:text-white
+    = yield
