@@ -46,15 +46,15 @@ class SlackAuth
     params = {}
     params.merge!(scope: bot_scopes_all.join(',')) if bot_scope
     params.merge!(user_scope: user_scopes_all.join(',')) if user_scope
-    params.merge! client_id: ENV['SLACK_API_KEY']
+    params.merge! client_id: ENV['SLACK_APP_KEY']
 
     base_url + '?' + params.to_query
   end
 
   def callback(received_params)
     base_url = 'https://slack.com/api/oauth.v2.access'
-    params = { client_id: ENV['SLACK_API_KEY'],
-               client_secret: ENV['SLACK_API_SECRET'],
+    params = { client_id: ENV['SLACK_APP_KEY'],
+               client_secret: ENV['SLACK_APP_SECRET'],
                code: received_params[:code]
     }
     resp = Faraday.post(base_url, params.to_query)
